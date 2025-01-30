@@ -74,3 +74,11 @@ def increase_enemies(enemy):
 enemies = increase_enemies(enemies)
 
 print(f"enemies outside of a function {enemies}")
+
+"""Global constants are constants that you define once and use their values but you will never need to modify them
+Naming convention 
+Global constants are defined in ALL CAPS
+for example 
+"""
+
+GOOGLE_URL = "https://google.com"
