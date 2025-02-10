@@ -26,3 +26,8 @@ tim = t()
 Installing modules, just an FYI there are some modules you cannot just import 
 """
 
+"""
+Python tuples is a data type in Python. Whats the difference between a tuple and list?
+A tuple is craved in stone therefore you cant change it, this is known as immutable 
+Ex my_tuple = (0,5,8)
+"""

@@ -5,7 +5,26 @@ timmy_the_turtle = Turtle()
 timmy_the_turtle.shape("turtle")
 timmy_the_turtle.color("orange4")
 # timmy_the_turtle.pensize(10)
-# timmy_the_turtle.speed(5)
+timmy_the_turtle.speed("fastest")
+
+screen = Screen()
+screen.colormode(255)
+
+def random_color():
+    r = random.randint(0,255)
+    g = random.randint(0,255)
+    b = random.randint(0,255)
+    rgb_tuple = (r,g,b)
+    return rgb_tuple
+
+size_of_gap = 10
+
+for _ in range(int(360 / size_of_gap)):  # Complete 360 degrees
+    timmy_the_turtle.color(random_color())  # Change color for each circle
+    timmy_the_turtle.circle(100)  # Draw a circle of radius 100
+    timmy_the_turtle.setheading(timmy_the_turtle.heading() + size_of_gap)  # Rotate turtle
+
+
 
 #Draw multiple types of shapes 
 # draw_shapes = True
@@ -40,9 +59,10 @@ timmy_the_turtle.color("orange4")
 # directions = [0,90,180,270]
 
 # for _ in range (200):
+#     rgb_tuple = random_color()
+#     timmy_the_turtle.color(rgb_tuple)
 #     timmy_the_turtle.forward(30)
 #     timmy_the_turtle.setheading(random.choice(directions))
-#     timmy_the_turtle.color(random.choice(['red','blue','yellow','green']))
 
 #Draw a square. 
 # for _ in range(4):
@@ -61,9 +81,7 @@ timmy_the_turtle.color("orange4")
 #     timmy_the_turtle.right(120)
 #     timmy_the_turtle.forward(100)
 
-"""
-Python tuples and how to generate random RGB colours 
-"""
-screen = Screen()
+
+
 screen.exitonclick()
 
