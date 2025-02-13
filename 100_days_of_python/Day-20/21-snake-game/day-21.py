@@ -33,4 +33,13 @@ print(nemo.num_eyes)
 
 #What does this mean it allows us to take an existing class somebody has created and then build on top of that 
 
+"""Lets say we wanted to slice a list so that we only get a small section of list? One of the ways we can do this is, is
+by creating a for loop but this is very convoluted, this is known as Slicing, this also works for Tuples
+
+For example 
+piano_keys = [ "a", "b", "c", "d", "e", "f", "g" ]
+piano_keys[2:5]
+piano_keys[2:]
+
+"""
 
