@@ -56,5 +56,20 @@ temp_list = data["temp"].to_list()
 
 #Challenge pull out the row of data which had the highest temp in the week 
 
-print(data[data.day == data["temp"].max()])
+# max_temp = data.temp.max()
+# print(data[data.temp == max_temp])
+# print(data[data.day == "Monday"])
 
+# monday = data[data.day == "Monday"]
+# print(monday.temp)
+
+#How to create a dataframe from scratch 
+data_dict = {
+    "students" : ["Amy", "James","Angela"],
+    "scores": [76,56,65]
+}
+
+data = pandas.DataFrame(data_dict)
+data.to_csv("new_data.csv")
+
+print(data)
