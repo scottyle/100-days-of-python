@@ -1,6 +1,8 @@
-file1 = open("file1.txt", "r")
+with open("file1.txt") as f1:
+    list_f1 = [int(x.strip()) for x in f1.readlines()]
 
-file1_list = []
-file2_list = []
+with open("file2.txt") as f2:
+    list_f2 = [int(x.strip()) for x in f2.readlines()]
 
-file1_list.append(file1.read())
+result = [nums for nums in list_f1 if nums in list_f2]
+print(result)
