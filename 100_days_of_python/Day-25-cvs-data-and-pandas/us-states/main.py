@@ -12,11 +12,12 @@ turtle.shape(image)
 answer_state = screen.textinput(title="Guess the state", prompt="What's another state's name?")
 
 #Import the csv data of states 
-states_data = pandas.read_csv("50_states.csv")
+data = pandas.read_csv("50_states.csv")
 
-print(states_data.index[states_data['state'] == answer_state.lower].to_list())
+print((data[data['state']=="?"]))
 
-
+if data[data['state']==answer_state.lower()]:
+    print("true")
 
 
 
