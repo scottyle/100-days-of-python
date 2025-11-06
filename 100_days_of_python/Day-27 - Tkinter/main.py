@@ -7,20 +7,23 @@ def button_clicked():
 window = Tk()
 window.title(string="My First GUI program")
 window.minsize(width=600,height=300)
+window.config(padx=20,pady=20)
 
 #Label
 my_label = Label(text="I am a Label",font=("Arial",24,"bold"))
-my_label.pack()
-
-my_label.config(text="New Text")
+my_label.grid(column=0,row=0)
 
 #Button 
 button = Button(text="Click me", command=button_clicked)
-button.pack()
+button.grid(column=1,row=1)
+
+#New button 
+new_button = Button(text="New Button")
+new_button.grid(column=2,row=0)
 
 #Entry 
 input = Entry(width=100)
-input.pack()
+input.grid(column=3,row=3)
 
 
 
