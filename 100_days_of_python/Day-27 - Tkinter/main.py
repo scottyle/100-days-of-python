@@ -1,16 +1,31 @@
-import tkinter
+from tkinter import *
 
-window = tkinter.Tk()
-window.title("My first GUI program")
-window.minsize(width=500, height=300)
+def button_clicked():
+    """Shows "Button Got Clicked" on my_label when the button is clicked"""
+    my_label.config(text=input.get())
 
-#Label 
-my_label = tkinter.Label(text="I Am A Label", font=("Arial",24,"bold"))
-my_label.pack(side="bottom")
+window = Tk()
+window.title(string="My First GUI program")
+window.minsize(width=600,height=300)
 
-"""
-Setting default values for optional argument inside a function header
-"""
+#Label
+my_label = Label(text="I am a Label",font=("Arial",24,"bold"))
+my_label.pack()
+
+my_label.config(text="New Text")
+
+#Button 
+button = Button(text="Click me", command=button_clicked)
+button.pack()
+
+#Entry 
+input = Entry(width=100)
+input.pack()
+
+
+
+
+
 
 
 window.mainloop()
