@@ -9,6 +9,7 @@ screen.addshape(image)
 turtle.shape(image)
 
 #Import the csv data of states 
+<<<<<<< HEAD
 data = pd.read_csv("50_states.csv")
 
 #Cursor configuration for marking states 
@@ -36,6 +37,14 @@ while score != TOTAL_STATES:
         score += 1 
     else:
         print("Guess again")
+=======
+data = pandas.read_csv("50_states.csv")
+
+print((data[data['state']=="?"]))
+
+if data[data['state']==answer_state.lower()]:
+    print("true")
+>>>>>>> 3578da00df600a45dbc62936b10a8c845c237835
 
 #Find the missing states if a user exits early 
 
