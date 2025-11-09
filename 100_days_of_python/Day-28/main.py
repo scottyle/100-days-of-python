@@ -8,12 +8,19 @@ RED = "#e7305b"
 GREEN = "#9bdeac"
 YELLOW = "#f7f5dd"
 FONT_NAME = "Courier"
-WORK_MIN = 1
-SHORT_BREAK_MIN = 5
+WORK_MIN = 5
+SHORT_BREAK_MIN = 1
 LONG_BREAK_MIN = 20
 REPS = 0
-
+timer = None
 # ---------------------------- TIMER RESET ------------------------------- # 
+def reset_timer():
+    window.after_cancel(timer)
+    timer_label.config(text="Timer")
+    canvas.itemconfig(timer_text,text="00:00")
+    tracker.config(text="")
+    global REPS
+    REPS = 0
 
 # ---------------------------- TIMER MECHANISM ------------------------------- # 
 def start_timer():
@@ -46,9 +53,13 @@ def count_down(count):
 
     canvas.itemconfig(timer_text,text=f"{count_min}:{count_sec}")
     if count > 0:
-        window.after(1000,count_down,count-1)
+        global timer
+        timer = window.after(1000,count_down,count-1)
     else: 
         start_timer()
+        if REPS % 2 == 0: 
+            tracker.config(text="✅" * int(REPS/2))
+            
 
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
@@ -67,11 +78,10 @@ timer_label.grid(row=0,column=1)
 start_button = Button(text="Start",bg=YELLOW,activebackground=YELLOW,borderless=1,command=start_timer)
 start_button.grid(row=2,column=0)
 
-
-reset_button = Button(text="Reset",bg=YELLOW,activebackground=YELLOW,borderless=1)
+reset_button = Button(text="Reset",bg=YELLOW,activebackground=YELLOW,borderless=1,command=reset_timer)
 reset_button.grid(row=2,column=3)
 
-tracker = Label(text="✅",fg=GREEN,bg=YELLOW)
+tracker = Label(text="",fg=GREEN,bg=YELLOW)
 tracker.grid(row=3,column=1)
 
 window.mainloop()
