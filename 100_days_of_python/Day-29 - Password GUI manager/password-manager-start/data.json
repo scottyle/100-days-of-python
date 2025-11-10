@@ -1,5 +1,14 @@
 {
-    "website": "google.com",
-    "email": "scottyle02@outlook.com",
-    "password": "V8kjq#iOBE3)%sK5"
+    "https://facebook.com": {
+        "email": "user@example.com",
+        "password": "abc123"
+    },
+    "https://test.com": {
+        "email": "scottyle02@outlook.com",
+        "password": "tAd1q($DOM6i6"
+    },
+    "https://google.com": {
+        "email": "testingemail@outlook.com",
+        "password": "M#4W+5BFV(6sIdi!"
+    }
 }
