@@ -1,11 +1,27 @@
 from tkinter import *
+import pandas as pd 
+import random
 
+FRENCH_WORDS_DATA = "data/french_words.csv"
 RIGHT_IMG = "images/right.png"
 WRONG_IMG = "images/wrong.png"
 CARD_BACK_IMG = "images/card_back.png"
 CARD_FRONT_IMG = "images/card_front.png" 
 BACKGROUND_COLOR = "#B1DDC6"
 FONT_NAME = "Arial"
+
+# ----------------------------CREATE NEW FLASHCARDS ------------------------------- #
+def create_new_flash_cards():
+    try: 
+        df = pd.read_csv(FRENCH_WORDS_DATA)
+    except FileNotFoundError as e:
+        print(e)
+    else:
+        words = df.to_dict()
+        length_of_french_words = len(words["French"])
+        #Loop through dict to get both french words and english words 
+        canvas.itemconfigure(title_text,text="French")
+        canvas.itemconfigure(word_text,text=words["French"][random.randrange(0,length_of_french_words)])
 
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
@@ -23,11 +39,11 @@ word_text = canvas.create_text(400,263,text="Word", font=(FONT_NAME,60,"bold"))
 
 #Buttons
 right_img = PhotoImage(file=RIGHT_IMG)
-right_button = Button(image=right_img, highlightthickness=0)
+right_button = Button(image=right_img, highlightthickness=0,command=create_new_flash_cards)
 right_button.grid(row=1,column=1)
 
 wrong_img = PhotoImage(file=WRONG_IMG)
-wrong_button = Button(image=wrong_img,highlightthickness=0)
+wrong_button = Button(image=wrong_img,highlightthickness=0,command=create_new_flash_cards)
 wrong_button.grid(row=1,column=0)
 
 
