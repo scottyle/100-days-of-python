@@ -4,6 +4,7 @@ import random
 import sys
 
 FRENCH_WORDS_DATA = "data/french_words.csv"
+WORDS_TO_LEARN = "data/words_to_learn.csv"
 RIGHT_IMG = "images/right.png"
 WRONG_IMG = "images/wrong.png"
 CARD_BACK_IMG = "images/card_back.png"
@@ -25,8 +26,9 @@ def create_new_words(right_or_wrong):
     # Cancel any pending flip before scheduling a new one
     if flip_timer is not None:
         window.after_cancel(flip_timer)
-    if right_or_wrong == "right":
+    if right_or_wrong == "wrong":
         words.remove(current_card)
+        print(len(words)) # this needs to be changed to the csv words_to_learn
 
     flip_timer = window.after(3000,lambda: flip_card(current_card["English"]))
 
@@ -38,12 +40,20 @@ def flip_card(current_word):
     canvas.itemconfig(word_text,text=current_word,fill="white")
 
 # ---------------------------- READ DATA OF WORDS ------------------------------- #
+    
+#Read words_to_learn.csv 
+
 try: 
-    df = pd.read_csv(FRENCH_WORDS_DATA)
+    df = pd.read_csv(WORDS_TO_LEARN)
     words = df.to_dict(orient="records")
 except FileNotFoundError as e:
-    print("Cannot find the french_words.csv file.")
-    sys.ext(1)      
+    try: 
+        df = pd.read_csv(FRENCH_WORDS_DATA)
+        words = df.to_dict(orient="records")
+        print("No words_to_learn.csv file found opening french_words.csv")
+    except FileNotFoundError as e:
+        print("Cannot find the french_words.csv file. Exiting...")
+        sys.exit(1)      
 # ---------------------------- UI SETUP ------------------------------- #
 #Run only if the csv file does not throw an error. 
 
