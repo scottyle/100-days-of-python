@@ -2,6 +2,7 @@ from tkinter import *
 import pandas as pd 
 import random
 import sys
+from tkinter import messagebox
 
 FRENCH_WORDS_DATA = "data/french_words.csv"
 WORDS_TO_LEARN = "data/words_to_learn.csv"
@@ -15,9 +16,13 @@ FONT_NAME = "Arial"
 flip_timer = None
 
 # ---------------------------- CREATE NEW FLASHCARDS ------------------------------- #
-def create_new_words(right_or_wrong):
+def next_flash_card(right_or_wrong):
     global flip_timer
-    current_card = random.choice(words)
+    try:
+        current_card = random.choice(words)
+    except IndexError as e:
+        messagebox.showinfo(title="Congrats!",message="No words left! Exiting game.")
+        sys.exit(1)
 
     canvas.itemconfig(canvas_image,image=card_front_img)
     canvas.itemconfig(title_text,text="French",fill="black")
@@ -26,9 +31,10 @@ def create_new_words(right_or_wrong):
     # Cancel any pending flip before scheduling a new one
     if flip_timer is not None:
         window.after_cancel(flip_timer)
-    if right_or_wrong == "wrong":
+    if right_or_wrong == "right":
         words.remove(current_card)
-        print(len(words)) # this needs to be changed to the csv words_to_learn
+        words_left_over = pd.DataFrame(words)
+        words_left_over.to_csv(WORDS_TO_LEARN,index=False)
 
     flip_timer = window.after(3000,lambda: flip_card(current_card["English"]))
 
@@ -71,15 +77,15 @@ canvas.grid(row=0,column=0,columnspan=2)
 title_text = canvas.create_text(400,150, text="Title",font=(FONT_NAME,40))
 word_text = canvas.create_text(400,263,text="Word", font=(FONT_NAME,60,"bold"))
 
-create_new_words("start")
+next_flash_card("start")
 
 #Buttons
 right_img = PhotoImage(file=RIGHT_IMG)
-right_button = Button(image=right_img, highlightthickness=0,command=lambda:create_new_words("right"))
+right_button = Button(image=right_img, highlightthickness=0,command=lambda:next_flash_card("right"))
 right_button.grid(row=1,column=1)
 
 wrong_img = PhotoImage(file=WRONG_IMG)
-wrong_button = Button(image=wrong_img,highlightthickness=0,command=lambda:create_new_words("left"))
+wrong_button = Button(image=wrong_img,highlightthickness=0,command=lambda:next_flash_card("left"))
 wrong_button.grid(row=1,column=0)
 
 
