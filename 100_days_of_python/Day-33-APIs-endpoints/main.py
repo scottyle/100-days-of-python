@@ -28,5 +28,6 @@ sunset = data["results"]["sunset"].split("T")[1].split(":")[0]
 
 timenow = datetime.now()
 print(timenow.hour)
+
 breakpoint()
 
