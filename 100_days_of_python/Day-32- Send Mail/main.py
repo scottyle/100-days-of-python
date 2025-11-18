@@ -9,8 +9,8 @@ Objective: Send a motivational quote via email on the current weekday (you can c
 CURRENT_TIME = dt.datetime.now()
 CURRENT_DAY = CURRENT_TIME.weekday()
 QUOTES = "quotes.txt"
-MY_EMAIL = "scottyle02test@gmail.com"
-PASSWORD = "jzwv ypon kbxj wruk"
+MY_EMAIL = "@gmail.com"
+PASSWORD = ""
 
 def get_a_quote():
     """This function retrieves a list of quotes from quotes.txt"""
@@ -36,7 +36,7 @@ def send_motivational_quote(quote):
         try:
             connection.sendmail(
                 from_addr=MY_EMAIL,
-                to_addrs="scottyle02@gmail.com",
+                to_addrs="@gmail.com",
                 msg=f"Subject:Daily Motivational Quote\n\n{quote}")
         except smtplib.SMTPRecipientsRefused as e:
             print(f"Failed to send email:{e}")

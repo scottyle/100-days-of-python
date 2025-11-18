@@ -1,15 +1,15 @@
 import smtplib
 import datetime as dt
 
-my_email = "scottyle02test@gmail.com"
-password = "jzwv ypon kbxj wruk"
+my_email = "@gmail.com"
+password = ""
 
 with smtplib.SMTP(host="smtp.gmail.com") as connection:
     connection.starttls()
     connection.login(user=my_email,password=password)
     connection.sendmail(
         from_addr=my_email,
-        to_addrs="scottyle02@gmail.com",
+        to_addrs="@gmail.com",
         msg="Subject:Hello\n\nThis is the body of the email.")
 
 current_time = dt.datetime.now() 

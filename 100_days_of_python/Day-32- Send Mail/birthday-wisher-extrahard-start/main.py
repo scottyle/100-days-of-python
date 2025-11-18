@@ -9,8 +9,8 @@ CURRENT_DAY = dt.datetime.today().day
 
 BIRTHDAYS_CSV = "birthdays.csv"
 
-MY_EMAIL = "scottyle02test@gmail.com"
-PASSWORD = "jzwv ypon kbxj wruk"
+MY_EMAIL = "@gmail.com"
+PASSWORD = ""
 
 def open_birthdays_csv():
     """This function is used to open birthdays.csv and retrieve birthday information"""
@@ -54,7 +54,7 @@ def send_birthday_message(birthday_message):
         try:
             connection.sendmail(
                 from_addr=MY_EMAIL,
-                to_addrs="scottyle02@gmail.com",
+                to_addrs="@gmail.com",
                 msg=f"Subject:Happy Birthday!\n\n{birthday_message}")
             print("Sent birthday email!")
         except smtplib.SMTPRecipientsRefused as e:
