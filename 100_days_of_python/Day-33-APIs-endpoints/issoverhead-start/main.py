@@ -60,7 +60,7 @@ hour = time_now.hour
 if (-5 <= MY_LAT - iss_latitude <= 5) and (-5 <= MY_LONG - iss_longitude <= 5):
     #Check if it is currently dark: 
     sunrise,sunset = get_sunrise_and_sunset()
-    if sunrise <= hour <= sunset:
+    if hour >= sunset or hour <= sunrise:
         send_notification()
 
 
