@@ -43,7 +43,7 @@ if any(weather["id"] < 700 for data in weather_data["list"] for weather in data[
     message = client.messages.create(
     from_="whatsapp:+14155238886",
     body="It's going to rain today. Remember to bring an umbrella",
-    to="whatsapp:+16474679254"
+    to="whatsapp:+1###"
     )
 
 
