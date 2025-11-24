@@ -1,0 +1,10 @@
+Environment variables 
+2 reasons why you would use one 
+
+1. Lets say you build a large application instead of changing the code base and updating the code you could have environmental variables you update.
+For example applications sending an email, certain variables in your code could be used as base variables 
+
+2. Security if you're uploading your code online, its not good to upload authentication keys or API keys as the rest of your code. 
+
+Environment variables allow us to separate out where we store our keys, secret stuff and other various variables away from where our code base is located. 
+
