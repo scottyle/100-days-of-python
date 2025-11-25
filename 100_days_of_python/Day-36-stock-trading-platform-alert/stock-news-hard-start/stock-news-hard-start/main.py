@@ -1,11 +1,11 @@
 #Standard library imports 
 import os
-import sys
 from datetime import date, timedelta
 
 #Third-party imports
 from dotenv import load_dotenv
 import requests
+from twilio.rest import Client
 
 load_dotenv()
 
@@ -17,6 +17,9 @@ NEWS_ENDPOINT = "https://newsapi.org/v2/everything"
 NEWS_API_KEY = os.getenv("NEWS_API_KEY")
 STOCK_API_KEY = os.getenv("STOCK_API_KEY")
 PRICE_CHANGE_THRESHOLD = 5
+PHONE_NUMBER = os.getenv("PHONE_NUMBER")
+SID = os.getenv("TWILIO_SID")
+TOKEN = os.getenv("TWILIO_AUTH_TOKEN")
 
 def get_todays_and_yesterdays_date()-> tuple[str, str]:
     """
@@ -50,7 +53,7 @@ def get_stock_fluctuation() -> bool:
     Retrieves the current stock price from https://www.alphavantage.co/query and compares it to previous days.
 
     The function checks whether the stock price has increased or decreased
-    between yesterday and the day before yesterday. If the change meets
+    between yesterday and today. If the change meets
     the defined threshold, related news articles will be retrieved.
 
     Returns:
@@ -80,13 +83,12 @@ def get_stock_fluctuation() -> bool:
     try:
         todays_stock_closing = float(stock_data["Time Series (Daily)"][todays_date]["4. close"])
         yesterdays_stock_closing = float(stock_data["Time Series (Daily)"][yesterdays_date]["4. close"])
-
     except KeyError as e:
         print("Key was not found check if key has changed in stock_data")
         return False
 
     #Compare today's stock price vs yesterday's price, if higher than 5% return true, else return false
-    return abs(todays_stock_closing - yesterdays_stock_closing)/todays_stock_closing * 100 > PRICE_CHANGE_THRESHOLD
+    return abs(todays_stock_closing - yesterdays_stock_closing)/yesterdays_stock_closing * 100 > PRICE_CHANGE_THRESHOLD
 
 def get_news()-> list[dict[str, str]]:
     """
@@ -127,46 +129,29 @@ def get_news()-> list[dict[str, str]]:
         article_list.append(article_details)
     return article_list
 
-fluctuation = get_stock_fluctuation()
+def send_whatsapp_message(articles:list):
+    """
+    Sends a whatsapp message of the title of articles and the URL
+    """
 
-if fluctuation:
-    get_news()
-else:
-    print("Stock is within margin of error")
+    message_body = "Nvidia: \n"
+    for news in articles:
+        message_body += f"Headline: {news['Title']}\n"
+        message_body += f"Brief: {news['URL']}\n"
+    client = Client(SID,TOKEN)
+    message = client.messages.create(
+        from_="whatsapp:+14155238886",
+        body=f"{message_body}",
+        to=f"whatsapp:+{PHONE_NUMBER}"
+    )
+    print(message.body)
 
+if __name__ == "__main__":
 
+    fluctuation = get_stock_fluctuation()
 
-
-## STEP 1: Use https://newsapi.org/docs/endpoints/everything
-# When STOCK price increase/decreases by 5% between yesterday and the day before yesterday then print("Get News").
-#HINT 1: Get the closing price for yesterday and the day before yesterday. Find the positive difference between the two prices. e.g. 40 - 20 = -20, but the positive difference is 20.
-#HINT 2: Work out the value of 5% of yerstday's closing stock price. 
-
-# response = requests.get(url=NEWS_ENDPOINT,params=parameters)
-# response.raise_for_status()
-# breakpoint()
-
-
-## STEP 2: Use https://newsapi.org/docs/endpoints/everything
-# Instead of printing ("Get News"), actually fetch the first 3 articles for the COMPANY_NAME. 
-#HINT 1: Think about using the Python Slice Operator
-
-
-
-## STEP 3: Use twilio.com/docs/sms/quickstart/python
-# Send a separate message with each article's title and description to your phone number. 
-#HINT 1: Consider using a List Comprehension.
-
-
-
-#Optional: Format the SMS message like this: 
-"""
-TSLA: 🔺2%
-Headline: Were Hedge Funds Right About Piling Into Tesla Inc. (TSLA)?. 
-Brief: We at Insider Monkey have gone over 821 13F filings that hedge funds and prominent investors are required to file by the SEC The 13F filings show the funds' and investors' portfolio positions as of March 31st, near the height of the coronavirus market crash.
-or
-"TSLA: 🔻5%
-Headline: Were Hedge Funds Right About Piling Into Tesla Inc. (TSLA)?. 
-Brief: We at Insider Monkey have gone over 821 13F filings that hedge funds and prominent investors are required to file by the SEC The 13F filings show the funds' and investors' portfolio positions as of March 31st, near the height of the coronavirus market crash.
-"""
-
+    if fluctuation:
+        articles = get_news()
+        send_whatsapp_message(articles)
+    else:
+        print("Stock has not increased or decreased by 5% since yesterday")
