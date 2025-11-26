@@ -16,7 +16,7 @@ STOCK_ENDPOINT = "https://www.alphavantage.co/query"
 NEWS_ENDPOINT = "https://newsapi.org/v2/everything"
 NEWS_API_KEY = os.getenv("NEWS_API_KEY")
 STOCK_API_KEY = os.getenv("STOCK_API_KEY")
-PRICE_CHANGE_THRESHOLD = 5
+PRICE_CHANGE_THRESHOLD = 1
 PHONE_NUMBER = os.getenv("PHONE_NUMBER")
 SID = os.getenv("TWILIO_SID")
 TOKEN = os.getenv("TWILIO_AUTH_TOKEN")
@@ -86,7 +86,6 @@ def get_stock_fluctuation() -> bool:
     except KeyError as e:
         print("Key was not found check if key has changed in stock_data")
         return False
-
     #Compare today's stock price vs yesterday's price, if higher than 5% return true, else return false
     return abs(todays_stock_closing - yesterdays_stock_closing)/yesterdays_stock_closing * 100 > PRICE_CHANGE_THRESHOLD
 
@@ -100,7 +99,7 @@ def get_news()-> list[dict[str, str]]:
     todays_date , yesterdays_date = get_todays_and_yesterdays_date()
 
     parameters = {
-        "q" : COMPANY_NAME,
+        "qInTitle" : COMPANY_NAME,
         "apiKey" :  NEWS_API_KEY,
         "from" : yesterdays_date,
         "to" :todays_date,
@@ -144,6 +143,7 @@ def send_whatsapp_message(articles:list):
         body=f"{message_body}",
         to=f"whatsapp:+{PHONE_NUMBER}"
     )
+
     print(message.body)
 
 if __name__ == "__main__":
