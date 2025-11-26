@@ -137,14 +137,16 @@ def send_whatsapp_message(articles:list):
     for news in articles:
         message_body += f"Headline: {news['Title']}\n"
         message_body += f"Brief: {news['URL']}\n"
-    client = Client(SID,TOKEN)
-    message = client.messages.create(
-        from_="whatsapp:+14155238886",
-        body=f"{message_body}",
-        to=f"whatsapp:+{PHONE_NUMBER}"
-    )
+        client = Client(SID,TOKEN)
+        message = client.messages.create(
 
-    print(message.body)
+            from_="whatsapp:+14155238886",
+            body=f"{message_body}",
+            to=f"whatsapp:+{PHONE_NUMBER}"
+        )
+        print(message.body)
+
+    
 
 if __name__ == "__main__":
 
