@@ -21,10 +21,6 @@ today = datetime.today()
 todays_date = today.strftime("%d/%m/%Y")
 todays_time = today.strftime("%H:%M:%S")
 
-exercise_input = input("Tell me which exercises you did: ")
-
-
-
 headers = {
     "Content-type" : "application/json",
     "x-app-id" : APP_ID,
@@ -37,7 +33,8 @@ def add_workout_to_google_sheet(workout_details:dict):
     response = requests.post(url=SHEETY_URL, json = workout_details)
 
 def get_workout_details():
-    """"""
+    """Gets the users workout details and calls workout api to return the excerise, time, duration_min"""
+    exercise_input = input("Tell me which exercises you did: ")
 
     exercise_data = {
 
@@ -48,7 +45,7 @@ def get_workout_details():
     "gender": GENDER,
 
     }   
-    
+
     response = requests.post(url=f"{EXERCISE_URL}/v1/nutrition/natural/exercise", json = exercise_data, headers=headers )
     response.raise_for_status
     data = response.json()
