@@ -1,5 +1,6 @@
 #Standard library imports
 import os
+import sys
 
 #Third-Part imports
 import requests 
@@ -30,11 +31,14 @@ def add_workout_to_google_sheet(workout_details:dict):
         "Content-type" : "application/json",
         "Authorization" : f"Bearer {SHEETY_API_KEY}"
     }
-
-    response = requests.post(url=SHEETY_URL, json = workout_details, headers=headers)
-    response.raise_for_status()
-    data = response.json()
-    return data 
+    try: 
+        response = requests.post(url=SHEETY_URL, json = workout_details, headers=headers)
+        response.raise_for_status()
+        data = response.json()
+        return data 
+    except requests.exceptions.HTTPError as e:
+        print(f"{e}, Please check API key.")
+        sys.exit()
 
 def get_workout_details():
     """Gets the users workout details and calls workout api to return the excerise, time, duration_min"""
@@ -55,11 +59,19 @@ def get_workout_details():
         "gender": GENDER,
     }   
 
-    response = requests.post(url=f"{EXERCISE_URL}/v1/nutrition/natural/exercise", json = user_health_details, headers=headers )
-    response.raise_for_status()
-    data = response.json()["exercises"][0]
-
-    return data["name"], data["duration_min"], data["nf_calories"]
+    try:
+        response = requests.post(url=f"{EXERCISE_URL}/v1/nutrition/natural/exercise", json = user_health_details, headers=headers )
+        response.raise_for_status()
+        try: 
+            data = response.json()["exercises"][0]
+            return data["name"], data["duration_min"], data["nf_calories"]
+        except IndexError:
+            print("Check user_health_json, unable to access data")
+            sys.exit()
+    
+    except requests.exceptions.HTTPError as e:
+        print(f"{e}, Please check API key.")
+        sys.exit()
 
 if __name__ == "__main__":
 
