@@ -85,7 +85,7 @@ if __name__ == "__main__":
             "exercise" : excerise.title(),
             "duration" : duration,
             "calories" : calories
-    }
+        }
     }
 
     data_sent = add_workout_to_google_sheet(workout_details)
