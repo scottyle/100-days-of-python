@@ -1,0 +1,39 @@
+HTML Boilerplate 
+- What is it? 
+Basic standard starting structure of an HTML document 
+
+
+<!DOCTYPE html> (Top of ever HTML file should be a doctype declaration, this tells the browser what version of HTML the file is written in)
+<html lang="en"> ("Root" of the document, lang=language of the of the text content in that element)
+    <head> (important information that is not displayed to the user, but helps the website render in the browser correctly, doesn't include text or images)
+        <meta charset="UTF-8"> (character set, "meta tag", ensures that the website gets displayed correctly)
+        <title>My Website </title> (title that is displayed on the tab of your browser)
+    </head>
+
+    <body> (this is where all of the content of the website goes)
+        <h1>Hello World!</h1> 
+    </body> 
+</html> (closing tag)
+
+List elements 
+
+Unordered list 
+<ul>
+    <li>Milk</li> (list items)
+    <li>Eggs</li> (list items)
+</ul> 
+
+Ordered List (a list that needs to be arranged in a particular order)
+
+<ol>
+    <li>Milk</li>
+    <li>Eggs</li>
+</ol> 
+
+Anchor elements 
+Ex.
+<a href="http://google.com"> This is a link </a>
+
+HTML attributes 
+This is the structure of a HTML attribute
+<tag attribute=value>Content</tag> 
