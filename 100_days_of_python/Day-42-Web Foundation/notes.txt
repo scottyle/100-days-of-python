@@ -1,0 +1,38 @@
+HTML (Hyper text markup language)
+- HTML the skeleton of a webpage 
+- Hyper text = A text which contains links to other texts 
+- Markup Lanaguge = 
+Ex.
+- headings
+- paragraphs 
+- images 
+- buttons 
+- forms 
+
+CSS 
+- Controls how things look 
+Ex.
+- colors 
+- fonts 
+- spacing 
+
+JavaScript (JS)
+- Makes the page interactive and dynamic 
+Ex. 
+- button clicks
+- form validation 
+
+A login button:
+
+HTML → creates the button
+
+CSS → makes it blue and centered
+
+JS → checks your password when clicked
+
+Non-void elements - paragraph element, heading elements 
+Void elements - is an element that you are forbidden from putting any content inside the tag 
+
+Ex.
+Horizontal rule element <hr />
+Break Element <br />
