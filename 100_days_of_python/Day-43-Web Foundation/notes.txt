@@ -37,3 +37,6 @@ Ex.
 HTML attributes 
 This is the structure of a HTML attribute
 <tag attribute=value>Content</tag> 
+
+Image elements 
+<img src= "url" alt = "description of the image"/>
