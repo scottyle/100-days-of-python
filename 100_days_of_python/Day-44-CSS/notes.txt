@@ -2,3 +2,90 @@ CSS
 
 What is CSS? 
 Cascading style sheets 
+
+How do you add CSS to plain HTML websites? 
+Three ways of adding CSS into HTML website 
+
+Inline 
+Ex.
+<html style="background:blue"> </html>
+(style attribute that is global avaiable to all tags not just HTML)
+- Inline elements are useful for adding CSS style to just a single element 
+- Not recommended to use inline styles in your entire doc, used for when you're testing or you want to use it in one single element 
+
+Internal
+Ex.
+<html> 
+    <head> 
+        <style> 
+            html (Selector){
+                background: red;
+            }
+        </style>
+    </head>
+</html>
+- internal CSS is added using a special element called the "style element"
+- this applies the internal style to anywhere within the same HTML document 
+- if you have a multi-page website you probably shouldnt be using the internal style you should use the external CSS style 
+- biggest difference between internal/external css is that the external styles live in another file, usually styles.css or main.css
+
+External 
+Ex.
+Index.html 
+<html> 
+    <head> 
+        <link
+            rel="stylesheet"
+            href=".styles.css"
+        />
+    </head>
+</html> 
+
+styles.css
+html{
+    background:green; 
+}
+- most commonly used in web development 
+
+CSS selectors 
+- Where to apply our CSS 
+- we can create CSS rules by specifying two thigns 
+    - the property we want to change and a colon we specify the value to change that property to
+        ex: 
+        h1(CSS selector) {
+            color(property): blue(value)
+        }
+    - What is a CSS selector, its the part that selects the HTML to apply whichever ruels go in between the curly braces 
+    - Element selector - the selector is above it targets all the h1's (a selector that targets a specific element)
+    - Class selector 
+        ex:
+        .red-text(name of the class) {
+            color:red
+        }
+        - What is a class?
+            - A class is something we can add as a attribute to any HTML element for example 
+                <h2 class ="red-text">Red</h2> 
+                <p class="red-text">Paragraph</p> 
+    - ID selector 
+        ex:
+        #main{
+            color:red
+        }        
+        - this selects all elemets with a particular ID attribute 
+        - this is what it looks like 
+        <h2 id="main">Red</h2>
+    - Difference between ID and Class selector
+        - Class selector can be applied to many elements 
+        - ID selector should be applied to one element in a single HTML file 
+    - Attribute selector 
+        ex:
+        p[draggable]{
+            color:red
+        }
+        - what does this do? select all p elements with the attribute draggable and apply this CSS style 
+    - Universal selector
+        ex:
+        *(select all){
+            color:red
+        }
+        - this is a select all selector where it applies to everything 
