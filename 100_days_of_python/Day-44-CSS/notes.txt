@@ -89,3 +89,59 @@ CSS selectors
             color:red
         }
         - this is a select all selector where it applies to everything 
+
+Color properties 
+- How do we know that we can use certain colors? 
+    - These are named named colors and we can go through the MDN docs to find the named color 
+- colorhunt.co (Color plaettes)
+    - To use these type of colors you have to use hex codes 
+
+Font Properties 
+- Font sizes uses pixels to represent the font size we can also use a pt
+    - ex: 20px 
+    - ex: 20pt 
+- When developing websites use the rem to set the font size (1rem = 100% of the root, 1em = 100% of the parent)
+
+h1 {
+    color: blue
+    font-weight: 
+    font-size: 20px 
+}
+
+- Font Weight you can have either normal or bold 
+h1 {
+    font-weight: bold
+}
+
+- Font Family - determines what you want your text to look like the comman behind the Helvetica is a backup font for the user if they do not have that font type on their computer 
+h1{
+    font-family:Helvetica,sans-serif
+}
+
+h1 {
+    font-family: "Times New Roman",serif
+}
+
+The Box Model
+-Margin,Padding and Border 
+- Border property border: 10px solid black 
+    - First value is the thickness of the border around the HTML element, seconnd item is the style of the border, finally color of the border (any name color or hex color)
+- Once you define a border you can further modify it with more specific rules 
+border: 10px solid black 
+    border-top: 0px; (this means that the top of the border will be 0px)
+
+- Padding simply adds the padding or space between the element and the border 
+padding: 20px 
+
+- margin, the outside part of the border (any other content aka elements)
+margin: 10px 
+
+Content division element 
+- lets say we want to style two bits together we can wrap a box around the two elements this is known as Content Division Element 
+- It is a generic container used to group other HTML elements together 
+Ex: 
+<div class="card">
+  <h2>Title</h2>
+  <p>This is some content.</p>
+</div>
+- above the h2 and paragraph can be styled together 
